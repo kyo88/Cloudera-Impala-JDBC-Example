@@ -9,15 +9,15 @@ import java.sql.Statement;
 public class ClouderaImpalaJdbcExample {
 	
 	// here is an example query based on one of the Hue Beeswax sample tables 
-	private static final String SQL_STATEMENT = "SELECT description FROM sample_07 limit 10";
+	private static final String SQL_STATEMENT = "SELECT * FROM  tmp_segment_tb";
 	
 	// set the impalad host
-	private static final String IMPALAD_HOST = "MyImpaladHost";
+	private static final String IMPALAD_HOST = "localhost";
 	
 	// port 21050 is the default impalad JDBC port 
 	private static final String IMPALAD_JDBC_PORT = "21050";
 
-	private static final String CONNECTION_URL = "jdbc:hive2://" + IMPALAD_HOST + ':' + IMPALAD_JDBC_PORT + "/;auth=noSasl";
+	private static final String CONNECTION_URL = "jdbc:hive2://" + IMPALAD_HOST + ':' + IMPALAD_JDBC_PORT + "/gmo_pdmp;auth=noSasl";
 
 	private static final String JDBC_DRIVER_NAME = "org.apache.hive.jdbc.HiveDriver";
 
@@ -37,6 +37,10 @@ public class ClouderaImpalaJdbcExample {
 			con = DriverManager.getConnection(CONNECTION_URL);
 
 			Statement stmt = con.createStatement();
+			
+			stmt.executeQuery("CREATE TABLE IF NOT EXISTS tmp_segment_tb (id STRING) STORED AS PARQUET");
+			stmt.executeQuery("INSERT OVERWRITE tmp_segment_tb select cookie_id FROM external_system_cookie_id");
+			
 
 			ResultSet rs = stmt.executeQuery(SQL_STATEMENT);
 
