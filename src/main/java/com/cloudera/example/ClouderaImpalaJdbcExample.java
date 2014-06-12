@@ -38,8 +38,8 @@ public class ClouderaImpalaJdbcExample {
 
 			Statement stmt = con.createStatement();
 			
-			stmt.executeQuery("CREATE TABLE IF NOT EXISTS tmp_segment_tb (id STRING) STORED AS PARQUET");
-			stmt.executeQuery("INSERT OVERWRITE tmp_segment_tb select cookie_id FROM external_system_cookie_id");
+			stmt.execute("CREATE TABLE IF NOT EXISTS tmp_segment_tb (id STRING) STORED AS PARQUET");
+			stmt.execute("INSERT OVERWRITE tmp_segment_tb select cookie_id FROM external_system_cookie_id");
 			
 
 			ResultSet rs = stmt.executeQuery(SQL_STATEMENT);
