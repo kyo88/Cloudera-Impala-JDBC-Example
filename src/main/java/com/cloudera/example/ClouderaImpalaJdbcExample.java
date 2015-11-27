@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class ClouderaImpalaJdbcExample {
 	
-	// here is an example query based on one of the Hue Beeswax sample tables 
+	// hesssre is an example query based on one of the Hue Beeswax sample tables 
 	private static final String SQL_STATEMENT = "SELECT * FROM  tmp_segment_tb";
 	
 	// set the impalad host
